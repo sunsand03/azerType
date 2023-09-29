@@ -1,3 +1,9 @@
+/***************************************************
+ * this file contains all constants of the project
+ *
+ **************************************************/
+
+
 // list of guessing words
 const wordsToGuess = ["Cachalot","Pétunia","Serviette"]
 
