@@ -45,7 +45,7 @@ function playLoopGame(arrayPropositions) {
  * start the game
  * @returns a sentence indicating the user’s score
  */
-function launchPlay() {
+function launchGame() {
     let choice = choiceSentencesOrWords()
     let score = 0
     let total = 0
