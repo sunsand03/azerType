@@ -1,44 +1,13 @@
 /**
  * displays a message to the user
  * @param {*} score 
- * @param {*} total 
+ * @param {*} totalWords 
  */
-function displayresult(score,total){    
-   console.log("Vous avez " + score + " sur " + total)   
-}
+function displayresult(score,totalWords){    
+   let spanScore =  document.querySelector(".zoneScore span") 
 
-/**
- * asks the user if he/she wants to play with words or phrases
- * @returns choice of the user
- */
-function choiceSentencesOrWords(){
-
-    let choice = prompt("voulez jouer avec des mots ou des phrases ? Taper mots ou phrases : ")
-
-    while (choice !== "mots" && choice !== "phrases"){
-        choice = prompt("Taper mots ou phrases : ")    
-    }
-
-    return choice
-}
-
-/**
- * displays the words or phrases to type and calculates the score
- * @param {*} arrayPropositions 
- * @returns score of the user
- */
-function playLoopGame(arrayPropositions) {
-    let score = 0
-    for (let i=0; i<arrayPropositions.length; i++){
-        let wordproposed = prompt("Entre le mot : " +  arrayPropositions[i])    
-        if(wordproposed === arrayPropositions[i]){
-            console.log("Bravo");
-            score++
-        }else{
-            console.log("vous avez fait une erreur de frappe");
-        }  
-    }    
-    return score
+   let htmlScore = `${score} / ${totalWords}`
+   spanScore.innerText = htmlScore
 }
 
 /**
@@ -46,19 +15,21 @@ function playLoopGame(arrayPropositions) {
  * @returns a sentence indicating the user’s score
  */
 function launchGame() {
-    let choice = choiceSentencesOrWords()
+    // initialization
     let score = 0
-    let total = 0
+    let totalWords = 0
+    
+    // recovery of the validation button and the input field
+    let buttonValidate = document.getElementById("btnValidateWord")
+    let inputWriting = document.getElementById("inputWriting")
 
-    if (choice === "mots"){
-        score = playLoopGame(wordsToGuess)
-        total = wordsToGuess.length
-    }else{
-        score = playLoopGame(sentencesToGuess)
-        total = sentencesToGuess.length
-    }
+    // recovery of the value entered at the click of the button
+    buttonValidate.addEventListener("click", () =>{
+        console.log(inputWriting.value)
+    })
 
-    return displayresult(score,total)
+    // score display
+    displayresult(score,totalWords)
 }
 
 
