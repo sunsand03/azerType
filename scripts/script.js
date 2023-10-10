@@ -27,23 +27,45 @@ function displayPropositions(proposition){
  */
 function displayEmail(name, email, score) {
     // build the mail
-    let mailto = `mailto:${email}?subject=Partage du score AzerType&body=Salut, je suis${name}  et je viens de réaliser le score de ${score} sur le site d'AzerType !`
+    let mailto = `mailto:${email}?subject=Partage du score AzerType&body=Salut, je suis ${name}  et je viens de réaliser le score de ${score} sur le site d'AzerType !`
     // Navigate to the mailto URL to display the mail
     location.href = mailto
 }
 
 /**
+ * word length check (minimum 2 characters)
+ * @param {*} name 
+ * @returns 
+ */
+function validateName(name) {    
+    if (name.length >=2){
+        return true
+    }
+    return false    
+}
+
+/**
+ * check of the format of the email address
+ * @param {*} email 
+ * @returns 
+ */
+function validateEmail(email) {
+    let emailRegex = new RegExp("[a-z0-9.-_]+@+[a-z0-9.-_]+\\.+[a-z0-9.-_]+")
+    if (emailRegex.test(email)){
+        return true
+    }
+    return false    
+}
+
+
+/**
  * start the game
  * @returns a sentence indicating the user’s score
  */
-function launchGame() {
-
-       
-     // call of the function initializing the event management 
-     // once the document is fully loaded 
-     document.addEventListener('DOMContentLoaded', function() {
-     initAddEventListenerPopup();
-    });
+function launchGame() {     
+    
+    // initialization of event management
+    initAddEventListenerPopup()   
 
     // score initialization
     let score = 0
@@ -95,15 +117,42 @@ function launchGame() {
         }
         displayPropositions(listproposition[i])
         })
-    }
+    } 
+
     
+    let form = document.querySelector("form")
+    form.addEventListener("submit", (event)=>{
+        event.preventDefault()
+        let fieldName = document.getElementById("name")
+        let name = fieldName.value        
+        
+        
+        let fieldEmail = document.getElementById("email")
+        let email = fieldEmail.value
+        
+
+        
+
+        console.log(name, email) 
+
+        if(validateName(name) && validateEmail(email)){
+           let scoreEmail = `${score} / ${i}`
+           displayEmail(name,email,scoreEmail)           
+        }else {
+            console.log("erreur")
+        }        
+    
+        })    
    
-
-
-
     // score display
-    displayresult(score,i)
+    displayresult(score,i)   
 }
+
+
+
+
+
+ 
 
 
 
