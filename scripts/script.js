@@ -34,27 +34,68 @@ function displayEmail(name, email, score) {
 
 /**
  * word length check (minimum 2 characters)
- * @param {*} name 
- * @returns 
+ * @param {string} name 
+ * throws {Error} 
  */
 function validateName(name) {    
-    if (name.length >=2){
-        return true
+    if (name.length < 2){
+       throw new Error("le nom est trop court. ")
     }
-    return false    
+       
 }
 
 /**
  * check of the format of the email address
- * @param {*} email 
- * @returns 
+ * @param {string} email 
+ * throws {Error} 
  */
 function validateEmail(email) {
     let emailRegex = new RegExp("[a-z0-9.-_]+@+[a-z0-9.-_]+\\.+[a-z0-9.-_]+")
-    if (emailRegex.test(email)){
-        return true
+    if (!emailRegex.test(email)){
+        throw new Error("l'email n'est pas valide. ")
     }
-    return false    
+  
+}
+
+/**
+ * display errors to the user
+ * @param {string} message 
+ */
+function displayMessageerror(message) {
+    
+    let spanerrorMessage = document.getElementById("errorMessage")
+
+    if(!spanerrorMessage){
+        let popup = document.querySelector(".popup")
+        spanerrorMessage = document.createElement("span")
+        spanerrorMessage.id = "errorMessage"        
+        popup.appendChild(spanerrorMessage) 
+    }
+
+    spanerrorMessage.innerText = message
+    
+}
+
+/**
+ * manage form to share score
+ * @param {number} scoreEmail 
+ */
+function manageForm(scoreEmail) {    
+    try {
+        let fieldName = document.getElementById("name")
+        let name = fieldName.value
+        validateName(name)       
+                
+        let fieldEmail = document.getElementById("email")
+        let email = fieldEmail.value
+        validateEmail(email)
+        displayMessageerror("")
+        displayEmail(name,email,scoreEmail)  
+                
+    } catch (error) {
+        displayMessageerror(error.message)
+    }   
+     
 }
 
 
@@ -119,30 +160,14 @@ function launchGame() {
         })
     } 
 
-    
-    let form = document.querySelector("form")
+    let form = document.querySelector("form")    
+
     form.addEventListener("submit", (event)=>{
         event.preventDefault()
-        let fieldName = document.getElementById("name")
-        let name = fieldName.value        
-        
-        
-        let fieldEmail = document.getElementById("email")
-        let email = fieldEmail.value
-        
-
-        
-
-        console.log(name, email) 
-
-        if(validateName(name) && validateEmail(email)){
-           let scoreEmail = `${score} / ${i}`
-           displayEmail(name,email,scoreEmail)           
-        }else {
-            console.log("erreur")
-        }        
+        let scoreEmail = `${score} / ${i}`
+        manageForm(scoreEmail)
+    })    
     
-        })    
    
     // score display
     displayresult(score,i)   
