@@ -1,3 +1,7 @@
+let startTime
+let endTime
+
+
 /**
  * displays a message to the user
  * @param {*} score 
@@ -98,6 +102,36 @@ function manageForm(scoreEmail) {
      
 }
 
+/**
+ * Record the start time when the user starts typing
+ * 
+ */
+function startTimer() {
+    startTime = new Date()
+}
+
+/**
+ * calculates the time elapsed during typing  
+ * @returns difference between the current time and the start time
+ */
+function endTimer() {
+    endTime = new Date()
+    let timeDiff = endTime - startTime  //time in milliseconds
+    return timeDiff
+}
+
+/**
+ * calculates the write speed
+ * @param {number} time 
+ * @param {*} textLength 
+ * @returns 
+ */
+function calculateSpeed(time, textLength) {
+    let timeInSecond = time / 1000
+    let speed = textLength/ timeInSecond
+    return Math.round(speed)
+}
+
 
 /**
  * start the game
@@ -105,14 +139,13 @@ function manageForm(scoreEmail) {
  */
 function launchGame() {     
     
-    // initialization of event management
+    // initialization 
     initAddEventListenerPopup()   
 
-    // score initialization
-    let score = 0
-    
-    // counter initialization
+    let score = 0    
     let i = 0
+    let totalspeed = 0
+    let speedCount = 0
 
     // by default, words are proposed
     let listproposition = wordsToGuess
@@ -123,24 +156,60 @@ function launchGame() {
 
     displayPropositions(listproposition[i])
 
+    inputWriting.addEventListener("input", ()=>{
+        if(!startTime){
+            startTimer()
+        }
+    })
+
     // recovery of the value entered at the click of the button
     buttonValidate.addEventListener("click", () =>{
-            console.log(inputWriting.value)
+            
             // update of the score in case of correct answer
             if (inputWriting.value === listproposition[i]){                
                 score++                
             }      
             i++
-            displayresult(score,i)           
+            displayresult(score,i)
+            
+            
+            let timeElapsed = endTimer()
+            let textLength = inputWriting.value.length
+            let speed = calculateSpeed(timeElapsed,textLength)
+            totalspeed += speed
+            speedCount++
+            
+            let speedElement = document.getElementById("speedElement")
+
+            if (!speedElement){
+                let zoneScore = document.querySelector(".zoneScore")
+                speedElement = document.createElement("p")
+                speedElement.id = "speedElement"            
+                zoneScore.appendChild(speedElement)
+            }
+
+            speedElement.innerText = `Vitesse de frappe : ${speed} caractères par secondes`
+           
+            startTime = null
+
             inputWriting.value = ""  
             
             // end of the game when the word list is complete
             if(listproposition[i] === undefined){
                 displayPropositions("Le jeu est fini")
                 buttonValidate.disabled = true
+                let averageSpeed = totalspeed/speedCount
+                console.log(averageSpeed);
+                let zoneScore = document.querySelector(".zoneScore")
+                let displayAverageSpeed = document.createElement("p")
+                displayAverageSpeed.innerText = `Vitesse moyenne: ${averageSpeed} caractères par seconde`
+                zoneScore.appendChild(displayAverageSpeed)
             }else{
                 displayPropositions(listproposition[i])
             }
+
+           
+
 
     })
 
