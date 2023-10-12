@@ -1,11 +1,12 @@
+// variable initialization
 let startTime
 let endTime
 
 
 /**
  * displays a message to the user
- * @param {*} score 
- * @param {*} totalWords 
+ * @param number score 
+ * @param number totalWords 
  */
 function displayresult(score,totalWords){    
    let spanScore =  document.querySelector(".zoneScore span") 
@@ -16,7 +17,7 @@ function displayresult(score,totalWords){
 
 /**
  * displays the proposition to the user (sentences or words)
- * @param {*} proposition 
+ * @param string proposition 
  */
 function displayPropositions(proposition){
     let toGuess = document.querySelector(".zoneProposition")
@@ -25,21 +26,21 @@ function displayPropositions(proposition){
 
 /**
  * builds and displays the email. 
- * @param {*} name : the name of the player
- * @param {*} email : the email of the person with whom he wants to share his score
- * @param {*} score : the score of the game
+ * @param string name : the name of the player
+ * @param string email : the email of the person with whom he wants to share his score
+ * @param string score : the score of the game
  */
 function displayEmail(name, email, score) {
     // build the mail
-    let mailto = `mailto:${email}?subject=Partage du score AzerType&body=Salut, je suis ${name}  et je viens de réaliser le score de ${score} sur le site d'AzerType !`
+    let mailto = `mailto:${email}?subject=Partage du score AzerType&body=Salut, je suis ${name} et je viens de réaliser le score de ${score} sur le site d'AzerType !`
     // Navigate to the mailto URL to display the mail
     location.href = mailto
 }
 
 /**
  * word length check (minimum 2 characters)
- * @param {string} name 
- * throws {Error} 
+ * @param string name 
+ * throws Error 
  */
 function validateName(name) {    
     if (name.length < 2){
@@ -50,8 +51,8 @@ function validateName(name) {
 
 /**
  * check of the format of the email address
- * @param {string} email 
- * throws {Error} 
+ * @param string email 
+ * throws Error
  */
 function validateEmail(email) {
     let emailRegex = new RegExp("[a-z0-9.-_]+@+[a-z0-9.-_]+\\.+[a-z0-9.-_]+")
@@ -63,7 +64,7 @@ function validateEmail(email) {
 
 /**
  * display errors to the user
- * @param {string} message 
+ * @param string message 
  */
 function displayMessageerror(message) {
     
@@ -82,7 +83,7 @@ function displayMessageerror(message) {
 
 /**
  * manage form to share score
- * @param {number} scoreEmail 
+ * @param number scoreEmail 
  */
 function manageForm(scoreEmail) {    
     try {
@@ -108,6 +109,7 @@ function manageForm(scoreEmail) {
  */
 function startTimer() {
     startTime = new Date()
+    return startTime
 }
 
 /**
@@ -122,9 +124,9 @@ function endTimer() {
 
 /**
  * calculates the write speed
- * @param {number} time 
- * @param {*} textLength 
- * @returns 
+ * @param number time 
+ * @param number textLength 
+ * @returns the speed rounded to the nearest integer
  */
 function calculateSpeed(time, textLength) {
     let timeInSecond = time / 1000
@@ -140,8 +142,7 @@ function calculateSpeed(time, textLength) {
 function launchGame() {     
     
     // initialization 
-    initAddEventListenerPopup()   
-
+    initAddEventListenerPopup() 
     let score = 0    
     let i = 0
     let totalspeed = 0
@@ -165,51 +166,47 @@ function launchGame() {
     // recovery of the value entered at the click of the button
     buttonValidate.addEventListener("click", () =>{
             
-            // update of the score in case of correct answer
-            if (inputWriting.value === listproposition[i]){                
-                score++                
-            }      
-            i++
-            displayresult(score,i)
+        // update of the score in case of correct answer
+        if (inputWriting.value === listproposition[i]){                
+            score++                
+        }      
+        i++
+        displayresult(score,i)
             
             
-            let timeElapsed = endTimer()
-            let textLength = inputWriting.value.length
-            let speed = calculateSpeed(timeElapsed,textLength)
-            totalspeed += speed
-            speedCount++
+        let timeElapsed = endTimer()
+        let textLength = inputWriting.value.length
+        let speed = calculateSpeed(timeElapsed,textLength)
+        totalspeed += speed
+        speedCount++
             
-            let speedElement = document.getElementById("speedElement")
+        let speedElement = document.getElementById("speedElement")
 
-            if (!speedElement){
-                let zoneScore = document.querySelector(".zoneScore")
-                speedElement = document.createElement("p")
-                speedElement.id = "speedElement"            
-                zoneScore.appendChild(speedElement)
-            }
+        if (!speedElement){
+            let zoneScore = document.querySelector(".zoneScore")
+            speedElement = document.createElement("p")
+            speedElement.id = "speedElement"            
+            zoneScore.appendChild(speedElement)
+        }
 
-            speedElement.innerText = `Vitesse de frappe : ${speed} caractères par secondes`
+        speedElement.innerText = `Vitesse de frappe : ${speed} caractères par secondes`
            
-            startTime = null
+        startTime = null
 
-            inputWriting.value = ""  
+        inputWriting.value = ""  
             
-            // end of the game when the word list is complete
-            if(listproposition[i] === undefined){
-                displayPropositions("Le jeu est fini")
-                buttonValidate.disabled = true
-                let averageSpeed = totalspeed/speedCount
-                console.log(averageSpeed);
-                let zoneScore = document.querySelector(".zoneScore")
-                let displayAverageSpeed = document.createElement("p")
-                displayAverageSpeed.innerText = `Vitesse moyenne: ${averageSpeed} caractères par seconde`
-                zoneScore.appendChild(displayAverageSpeed)
-            }else{
+        // end of the game when the word list is complete
+        if(listproposition[i] === undefined){
+            displayPropositions("Le jeu est fini")
+            buttonValidate.disabled = true
+            let averageSpeed = totalspeed/speedCount            
+            let zoneScore = document.querySelector(".zoneScore")
+            let displayAverageSpeed = document.createElement("p")
+            displayAverageSpeed.innerText = `Vitesse moyenne: ${averageSpeed} caractères par seconde`
+            zoneScore.appendChild(displayAverageSpeed)
+        }else{
                 displayPropositions(listproposition[i])
-            }
-
-           
-
+        }  
 
     })
 
@@ -235,20 +232,9 @@ function launchGame() {
         event.preventDefault()
         let scoreEmail = `${score} / ${i}`
         manageForm(scoreEmail)
-    })    
-    
-   
+    })
+       
     // score display
-    displayresult(score,i)   
-}
-
-
-
-
-
- 
-
-
-
+    displayresult(score,i)  
 
 
