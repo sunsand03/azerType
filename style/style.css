@@ -135,7 +135,8 @@ footer{
 }
 
 .optionSource input[type='radio']:not(:first-child) {
-    margin-left: 20px;
+    margin-left: 5px;
+    margin-right: 10px;
 }
 
 /** Field where text (word or phrase) will be displayed */
