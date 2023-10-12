@@ -235,6 +235,7 @@ function launchGame() {
     })
        
     // score display
-    displayresult(score,i)  
+    displayresult(score,i)
+}  
 
 
