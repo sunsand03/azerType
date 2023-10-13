@@ -63,7 +63,7 @@ function validateEmail(email) {
 }
 
 /**
- * display errors to the user
+ * displays errors to the user
  * @param string message 
  */
 function displayMessageerror(message) {
@@ -82,7 +82,7 @@ function displayMessageerror(message) {
 }
 
 /**
- * manage form to share score
+ * manages form to share score
  * @param number scoreEmail 
  */
 function manageForm(scoreEmail) {    
@@ -104,7 +104,7 @@ function manageForm(scoreEmail) {
 }
 
 /**
- * Record the start time when the user starts typing
+ * Records the start time when the user starts typing
  * 
  */
 function startTimer() {
@@ -136,7 +136,7 @@ function calculateSpeed(time, textLength) {
 
 
 /**
- * start the game
+ * starts the game
  * @returns a sentence indicating the user’s score
  */
 function launchGame() {     
@@ -151,7 +151,7 @@ function launchGame() {
     // by default, words are proposed
     let listproposition = wordsToGuess
     
-    // recovery of the validation button and the input field
+    // recovers of the validation button and the input field
     let buttonValidate = document.getElementById("btnValidateWord")
     let inputWriting = document.getElementById("inputWriting")
 
@@ -163,10 +163,10 @@ function launchGame() {
         }
     })
 
-    // recovery of the value entered at the click of the button
+    // recovers of the value entered at the click of the button
     buttonValidate.addEventListener("click", () =>{
             
-        // update of the score in case of correct answer
+        // updates of the score in case of correct answer
         if (inputWriting.value === listproposition[i]){                
             score++                
         }      
@@ -210,7 +210,7 @@ function launchGame() {
 
     })
 
-    //recovery of the radio button
+    //recoverys of the radio button
     let listBtnRadio = document.querySelectorAll(".optionSource input")
 
     // listens to change at the radio buttons
@@ -228,6 +228,7 @@ function launchGame() {
 
     let form = document.querySelector("form")    
 
+    // prevents reload of the page and displays the score
     form.addEventListener("submit", (event)=>{
         event.preventDefault()
         let scoreEmail = `${score} / ${i}`
