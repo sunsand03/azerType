@@ -233,10 +233,8 @@ function launchGame() {
         event.preventDefault()
         let scoreEmail = `${score} / ${i}`
         manageForm(scoreEmail)
-    })
-       
-    // score display
-    displayresult(score,i)
+    })      
+   
 }  
 
 
