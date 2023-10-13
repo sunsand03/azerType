@@ -1,6 +1,7 @@
-# Application AzerType
+# AzerType Application
 
-* Le programme propose des mots ou des phrases à l'utilisateur.
-* L'utilisateur choisit s'il veut jouer avec des mots ou des phrases.
-* Selon son choix, l'utilisateur doit taper correctement les mots ou phrases proposé(e)s avec son clavier.
-* Si la saisie est correct, l'utilisateur passe au mot suivant ou à la phrase suivante, et un point est ajouté à son score.
+* The program offers words or sentences to the user.
+* The user chooses if they want to play with words or sentences.
+* Based on their choice, the user must correctly type the given words or sentences using their keyboard.
+* If the entry is correct, the user moves on to the next word or sentence, and a point is added to their score.
+* At the end of the game, the user can share their score with another person by sending them an email.
