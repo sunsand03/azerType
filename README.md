@@ -1,9 +1,9 @@
 # AzerType Application
 
-##💻 Stack
+## 💻 Stack
 **JavaScript** | **HTML** | **CSS**
 
-##🔍Description
+## 🔍Description
 * Le programme propose des mots ou des phrases à l’utilisateur.
 * L’utilisateur choisit s’il veut jouer avec des mots ou des phrases.
 * En fonction de son choix, l’utilisateur doit saisir correctement les mots ou phrases donné(e)s à l’aide de son clavier.
@@ -13,14 +13,14 @@
 ![Capture d'écran de la page web](screenshot.png)
 
 
-##📝 Résumé du projet
+## 📝 Résumé du projet
 - scripts: le dossier contient tous les fichiers utilisés pour établir les différentes fonctionnalités et la logique de l'application. 
 
 - style: le dossier contient le fichier CSS utilisé pour styliser l’interface utilisateur du projet.
 
 
 
-##🚀 Run Locally
+## 🚀 Run Locally
 * Clone the azerType repository:
 
 ``git clone https://github.com/sunsand03/azerType``
