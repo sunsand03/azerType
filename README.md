@@ -10,6 +10,9 @@
 * Si la saisie est correcte, l’utilisateur passe au mot ou à la phrase suivante, et un point est ajouté à son score.
 * A la fin de la partie, l’utilisateur peut partager son score avec une autre personne en lui envoyant un email.
 
+![Capture d'écran de la page web](screenshot.png)
+
+
 ##📝 Résumé du projet
 - scripts: le dossier contient tous les fichiers utilisés pour établir les différentes fonctionnalités et la logique de l'application. 
 
